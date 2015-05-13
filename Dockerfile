@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:sid
 
 MAINTAINER Ilya Epifanov <elijah.epifanov@gmail.com>
 
@@ -13,14 +13,15 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
  && rm /usr/local/bin/gosu.asc \
  && chmod +x /usr/local/bin/gosu
 
-RUN groupadd -r teamcity-agent \
- && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent
-
 RUN apt-get update \
- && apt-get install -y openjdk-7-jre-headless --no-install-recommends \
+ && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk --no-install-recommends \
+ && apt-get install -y docker.io \
  && dpkg-reconfigure ca-certificates-java \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN groupadd -r teamcity-agent \
+ && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent -G docker
 
 ENV TEAMCITY_VERSION=9.0.4
 
@@ -40,7 +41,7 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ENV TEAMCITY_AGENT_OPTS=""
-ENV TEAMCITY_AGENT_MEM_OPTS="-mx128m -XX:+UseG1GC"
+ENV TEAMCITY_AGENT_MEM_OPTS="-mx128m -XX:+UseG1GC -XX:+UseStringDeduplication"
 
 EXPOSE 8002
 CMD ["/var/lib/teamcity-agent/bin/agent.sh", "run"]
