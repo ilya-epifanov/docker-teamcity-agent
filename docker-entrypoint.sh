@@ -9,6 +9,7 @@ name=$TEAMCITY_AGENT_NAME
 workDir=../work
 tempDir=../temp
 systemDir=../system
+ownAddress=$TEAMCITY_AGENT_HOST
 ownPort=$TEAMCITY_AGENT_PORT
 authorizationToken=$TEAMCITY_AGENT_TOKEN
 env.HOME=/var/lib/teamcity-agent
