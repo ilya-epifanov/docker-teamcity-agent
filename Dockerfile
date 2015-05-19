@@ -3,7 +3,7 @@ FROM debian:sid
 MAINTAINER Ilya Epifanov <elijah.epifanov@gmail.com>
 
 RUN apt-get update \
- && apt-get install -y curl ca-certificates --no-install-recommends \
+ && apt-get install -y curl ca-certificates apt-transport-https --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
 
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
@@ -13,9 +13,12 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
  && rm /usr/local/bin/gosu.asc \
  && chmod +x /usr/local/bin/gosu
 
+RUN curl -s https://get.docker.com/gpg | apt-key add - \
+ && echo 'deb https://get.docker.com/ubuntu docker main' > /etc/apt/sources.list.d/docker.list
+
 RUN apt-get update \
  && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk --no-install-recommends \
- && apt-get install -y docker.io \
+ && apt-get install -y lxc-docker-1.5.0 \
  && dpkg-reconfigure ca-certificates-java \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
