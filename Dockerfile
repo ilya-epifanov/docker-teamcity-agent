@@ -44,7 +44,7 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ENV TEAMCITY_AGENT_OPTS=""
-ENV TEAMCITY_AGENT_MEM_OPTS="-mx128m -XX:+UseG1GC -XX:+UseStringDeduplication"
+ENV TEAMCITY_AGENT_MEM_OPTS="-mx256m -XX:+UseG1GC -XX:+UseStringDeduplication"
 
 EXPOSE 8002
 CMD ["/var/lib/teamcity-agent/bin/agent.sh", "run"]
