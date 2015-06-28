@@ -26,7 +26,7 @@ RUN apt-get update \
 RUN groupadd -r teamcity-agent \
  && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent -G docker
 
-ENV TEAMCITY_VERSION=9.0.4
+ENV TEAMCITY_VERSION=9.0.5
 
 RUN curl -o /tmp/teamcity.tar.gz -SL "http://download.jetbrains.com/teamcity/TeamCity-${TEAMCITY_VERSION}.tar.gz" \
  && mkdir /tmp/teamcity \
