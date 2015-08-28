@@ -18,7 +18,7 @@ RUN curl -s https://get.docker.com/gpg | apt-key add - \
 
 RUN apt-get update \
  && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk --no-install-recommends \
- && apt-get install -y lxc-docker-1.5.0 \
+ && apt-get install -y lxc-docker-1.7.1 \
  && dpkg-reconfigure ca-certificates-java \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -26,7 +26,7 @@ RUN apt-get update \
 RUN groupadd -r teamcity-agent \
  && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent -G docker
 
-ENV TEAMCITY_VERSION=9.0.5
+ENV TEAMCITY_VERSION=9.1.1
 
 RUN curl -o /tmp/teamcity.tar.gz -SL "http://download.jetbrains.com/teamcity/TeamCity-${TEAMCITY_VERSION}.tar.gz" \
  && mkdir /tmp/teamcity \
