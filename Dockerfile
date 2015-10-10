@@ -20,7 +20,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN groupadd -r teamcity-agent \
- && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent -G docker
+ && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent
 
 ENV TEAMCITY_VERSION=9.1.3
 
