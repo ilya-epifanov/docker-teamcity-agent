@@ -14,7 +14,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
  && chmod +x /usr/local/bin/gosu
 
 RUN apt-get update \
- && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk --no-install-recommends \
+ && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk rsync --no-install-recommends \
  && dpkg-reconfigure ca-certificates-java \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -22,7 +22,7 @@ RUN apt-get update \
 RUN groupadd -r teamcity-agent \
  && useradd -r -d /var/lib/teamcity-agent -m -g teamcity-agent teamcity-agent
 
-ENV TEAMCITY_VERSION=9.1.3
+ENV TEAMCITY_VERSION=9.1.4
 
 RUN curl -o /tmp/teamcity.tar.gz -SL "http://download.jetbrains.com/teamcity/TeamCity-${TEAMCITY_VERSION}.tar.gz" \
  && mkdir /tmp/teamcity \
