@@ -14,7 +14,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
  && chmod +x /usr/local/bin/gosu
 
 RUN apt-get update \
- && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk rsync --no-install-recommends \
+ && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk rsync openssh-client --no-install-recommends \
  && dpkg-reconfigure ca-certificates-java \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
